@@ -1,10 +1,10 @@
 package net.leanix.tdmservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,13 +17,12 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class Developer {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private String name;
     @NotNull
-    @OneToOne
+    @ManyToOne
     private Team team;
 }
