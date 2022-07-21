@@ -1,20 +1,18 @@
 package net.leanix.tdmservice.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
-@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonIgnoreProperties({"developers"})
 public class Team {
 
     @Id
@@ -24,10 +22,9 @@ public class Team {
     private String description;
     @OneToMany(
             mappedBy = "team",
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             orphanRemoval = true
     )
-    @JsonIgnore
     private Set<Developer> developers;
 
 }

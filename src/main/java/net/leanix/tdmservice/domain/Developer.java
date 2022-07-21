@@ -1,17 +1,13 @@
 package net.leanix.tdmservice.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
 @Entity
-@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
