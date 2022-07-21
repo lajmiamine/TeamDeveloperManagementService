@@ -1,0 +1,25 @@
+server:
+  servlet:
+    context-path: /api
+
+spring:
+  main:
+    banner-mode: console
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation=true:
+        default_schema: public
+    hibernate:
+      generate-ddl: create
+    show-sql: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tdm
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+
+  level.org.springframework: ERROR
