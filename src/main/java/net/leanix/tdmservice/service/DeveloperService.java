@@ -24,17 +24,11 @@ public class DeveloperService {
 
     public Developer create(Developer map) { return developerRepository.save(map);}
 
-    public Developer update(Long id, Developer developerData) {
-        val developer = developerRepository.findById(id).get();
-        if(developerData.getName() != null)  developer.setName(developerData.getName());
-        if(developerData.getTeam() != null)  developer.setTeam(developerData.getTeam());
-        return developerRepository.save(developer);
+    public void update(Long id, Developer developer) {
+        developerRepository.findById(id).ifPresentOrElse(it ->developerRepository.save(developer), RuntimeException::new);
     }
 
-    public void delete(Long id) throws ChangeSetPersister.NotFoundException {
-        if(developerRepository.findById(id).isEmpty()){
-            throw new ChangeSetPersister.NotFoundException();
-        }
-        developerRepository.deleteById(id);
+    public void delete(Long id) {
+        developerRepository.findById(id).ifPresentOrElse(it ->developerRepository.deleteById(id), RuntimeException::new);
     }
 }

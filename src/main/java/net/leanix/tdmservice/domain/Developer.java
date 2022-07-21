@@ -1,12 +1,14 @@
 package net.leanix.tdmservice.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
+@Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +20,6 @@ public class Developer {
     private Long id;
     @NotNull
     private String name;
-    @NotNull
     @ManyToOne
     private Team team;
 }

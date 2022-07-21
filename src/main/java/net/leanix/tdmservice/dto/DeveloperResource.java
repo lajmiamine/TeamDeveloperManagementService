@@ -2,7 +2,6 @@ package net.leanix.tdmservice.dto;
 
 import lombok.*;
 import net.leanix.tdmservice.domain.Team;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Getter
 @Setter

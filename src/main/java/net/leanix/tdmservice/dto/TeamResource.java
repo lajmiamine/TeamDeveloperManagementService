@@ -14,6 +14,7 @@ import java.util.Set;
 @Builder
 @JsonIgnoreProperties({"developers"})
 public class TeamResource {
+    
 
     private Long id;
     @NotEmpty
