@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(TeamController.class)
-class DeveloperControllerTests {
+class TeamControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -34,10 +34,9 @@ class DeveloperControllerTests {
 
 
     @Test
-    public void should_return_ALL_team() throws Exception {
+    public void should_return_TWO_teams() throws Exception {
         when(teamService.getAll()).thenReturn(List.of(firstTeam(),secondTeam()));
-        mockMvc.perform(get("/v1/teams")
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/teams"))
                         .andExpect(status().isOk())
                         .andExpect(jsonPath("$", hasSize(2)))
                         .andReturn();
@@ -46,8 +45,7 @@ class DeveloperControllerTests {
     @Test
     public void should_return_A_team() throws Exception {
         when(teamService.getById(1L)).thenReturn(firstTeam());
-        mockMvc.perform(get("/v1/teams/{id}",1L)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/teams/{id}",1L))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(firstTeam().getName())));
     }
@@ -55,8 +53,7 @@ class DeveloperControllerTests {
     @Test
     public void should_return_Bad_Request_when_fetching_A_team() throws Exception {
         doThrow(new ResourceNotFoundException(ErrorCodes.TEAM_NOT_FOUND)).when(teamService).getById(1L);
-        mockMvc.perform(get("/v1/teams/{id}",1L)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/teams/{id}",1L))
                 .andExpect(status().isNotFound());
     }
 
@@ -92,9 +89,8 @@ class DeveloperControllerTests {
 
     @Test
     public void should_delete_a_team() throws Exception {
-        doNothing().when(teamService).update(any(),any());
-        mockMvc.perform(delete("/v1/teams/{id}",1L)
-                        .contentType(MediaType.APPLICATION_JSON))
+        doNothing().when(teamService).delete(any());
+        mockMvc.perform(delete("/v1/teams/{id}",1L))
                 .andExpect(status().isNoContent());
     }
 

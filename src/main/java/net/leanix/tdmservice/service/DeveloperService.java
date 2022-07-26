@@ -22,7 +22,7 @@ public class DeveloperService {
     }
 
     public Developer getById(final Long id) {
-        return developerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ErrorCodes.TEAM_NOT_FOUND));
+        return developerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ErrorCodes.DEVELOPER_NOT_FOUND));
     }
 
     public Developer create(Developer map) {
