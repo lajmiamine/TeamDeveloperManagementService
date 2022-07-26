@@ -11,6 +11,7 @@ public class DeveloperMapper {
                 .team(developer.getTeam())
                 .build();
     }
+
     public static Developer map(DeveloperResource developerResource) {
         return Developer.builder()
                 .id(developerResource.getId())

@@ -1,14 +1,15 @@
 package net.leanix.tdmservice.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import net.leanix.tdmservice.domain.Developer;
+import net.leanix.tdmservice.exception.ErrorCodes;
+import net.leanix.tdmservice.exception.ResourceNotFoundException;
 import net.leanix.tdmservice.repository.DeveloperRepository;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
+import static java.util.Objects.nonNull;
 
 @Service
 @RequiredArgsConstructor
@@ -20,15 +21,19 @@ public class DeveloperService {
         return developerRepository.findAll();
     }
 
-    public Optional<Developer> getById(final Long id) {return developerRepository.findById(id);}
+    public Developer getById(final Long id) {
+        return developerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ErrorCodes.TEAM_NOT_FOUND));
+    }
 
-    public Developer create(Developer map) { return developerRepository.save(map);}
+    public Developer create(Developer map) {
+        return developerRepository.save(map);
+    }
 
     public void update(Long id, Developer developer) {
-        developerRepository.findById(id).ifPresentOrElse(it ->developerRepository.save(developer), RuntimeException::new);
+        if (nonNull(getById(id))) developerRepository.save(developer);
     }
 
     public void delete(Long id) {
-        developerRepository.findById(id).ifPresentOrElse(it ->developerRepository.deleteById(id), RuntimeException::new);
+        if (nonNull(getById(id))) developerRepository.deleteById(id);
     }
 }

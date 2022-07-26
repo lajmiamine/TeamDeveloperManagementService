@@ -4,8 +4,10 @@ import net.leanix.tdmservice.domain.Team;
 import net.leanix.tdmservice.dto.TeamResource;
 
 public final class TeamMapper {
-    private TeamMapper(){}
-    public static Team map(final TeamResource teamResource){
+    private TeamMapper() {
+    }
+
+    public static Team map(final TeamResource teamResource) {
         return Team.builder()
                 //.id(teamResource.getId()) TODO should only be set by JPA
                 .description(teamResource.getDescription())
@@ -13,7 +15,8 @@ public final class TeamMapper {
                 .developers(teamResource.getDevelopers())
                 .build();
     }
-    public static TeamResource map(final Team team){
+
+    public static TeamResource map(final Team team) {
         return TeamResource.builder()
                 .id(team.getId())
                 .description(team.getDescription())

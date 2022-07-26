@@ -21,5 +21,6 @@ public class Developer {
     @NotNull
     private String name;
     @ManyToOne
+    @NotNull
     private Team team;
 }
