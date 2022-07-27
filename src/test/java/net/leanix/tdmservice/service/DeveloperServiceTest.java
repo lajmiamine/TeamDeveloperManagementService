@@ -34,15 +34,15 @@ public class DeveloperServiceTest {
     ArgumentCaptor<Developer> developerCaptor;
 
     @Test
-    void should_return_TWO_developers(){
-        given(developerRepository.findAll()).willReturn(List.of(firstDeveloper(),secondDeveloper()));
+    void should_return_TWO_developers() {
+        given(developerRepository.findAll()).willReturn(List.of(firstDeveloper(), secondDeveloper()));
         val developers = developerService.getAll();
         verify(developerRepository).findAll();
         assertThat(developers.size()).isEqualTo(2);
     }
 
     @Test
-    void should_return_A_developers(){
+    void should_return_A_developers() {
         given(developerRepository.findById(anyLong())).willReturn(Optional.of(firstDeveloper()));
         val developer = developerService.getById(1L);
         verify(developerRepository).findById(1L);
@@ -50,9 +50,9 @@ public class DeveloperServiceTest {
     }
 
     @Test
-    void should_throw_exception_when_developer_not_found(){
+    void should_throw_exception_when_developer_not_found() {
         given(developerRepository.findById(anyLong())).willReturn(Optional.empty());
-        assertThatThrownBy(()-> developerService.getById(1L)).isExactlyInstanceOf(ResourceNotFoundException.class);
+        assertThatThrownBy(() -> developerService.getById(1L)).isExactlyInstanceOf(ResourceNotFoundException.class);
     }
 
     @Test

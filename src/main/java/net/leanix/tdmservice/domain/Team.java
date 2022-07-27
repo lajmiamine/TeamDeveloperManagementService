@@ -7,9 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,6 +23,7 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
+    @NotEmpty
     private String name;
     private String description;
     @OneToMany(
@@ -30,6 +32,6 @@ public class Team {
     )
     @Builder.Default
     @JsonIgnore
-    private Set<Developer> developers = new HashSet<>();
+    private List<Developer> developers = new ArrayList<>();
 
 }

@@ -30,10 +30,17 @@ public class TeamService {
     }
 
     public void update(final Long id, final Team team) {
-        if (nonNull(getById(id))) teamRepository.save(team);
+        Team teamToBeUpdate = getById(id);
+        if (nonNull(teamToBeUpdate)) {
+            if (nonNull(team.getName())) teamToBeUpdate.setName(team.getName());
+            if (nonNull(team.getDescription())) teamToBeUpdate.setDescription(team.getDescription());
+            if (nonNull(team.getDevelopers())) teamToBeUpdate.setDevelopers(team.getDevelopers());
+            teamRepository.save(teamToBeUpdate);
+        } else throw new ResourceNotFoundException(ErrorCodes.TEAM_NOT_FOUND);
     }
 
     public void delete(final Long id) {
         if (nonNull(getById(id))) teamRepository.deleteById(id);
+        else throw new ResourceNotFoundException(ErrorCodes.TEAM_NOT_FOUND);
     }
 }

@@ -1,24 +1,28 @@
 package net.leanix.tdmservice.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.leanix.tdmservice.domain.Developer;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonIgnoreProperties({"developers"})
 public class TeamResource {
 
 
     private Long id;
+    @NotNull
     @NotEmpty
     private String name;
     private String description;
-    private Set<Developer> developers;
+    @JsonIgnore
+    private List<Developer> developers;
 }

@@ -35,17 +35,17 @@ class TeamControllerTests {
 
     @Test
     public void should_return_TWO_teams() throws Exception {
-        when(teamService.getAll()).thenReturn(List.of(firstTeam(),secondTeam()));
+        when(teamService.getAll()).thenReturn(List.of(firstTeam(), secondTeam()));
         mockMvc.perform(get("/v1/teams"))
-                        .andExpect(status().isOk())
-                        .andExpect(jsonPath("$", hasSize(2)))
-                        .andReturn();
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andReturn();
     }
 
     @Test
     public void should_return_A_team() throws Exception {
         when(teamService.getById(1L)).thenReturn(firstTeam());
-        mockMvc.perform(get("/v1/teams/{id}",1L))
+        mockMvc.perform(get("/v1/teams/{id}", 1L))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(firstTeam().getName())));
     }
@@ -53,7 +53,7 @@ class TeamControllerTests {
     @Test
     public void should_return_Bad_Request_when_fetching_A_team() throws Exception {
         doThrow(new ResourceNotFoundException(ErrorCodes.TEAM_NOT_FOUND)).when(teamService).getById(1L);
-        mockMvc.perform(get("/v1/teams/{id}",1L))
+        mockMvc.perform(get("/v1/teams/{id}", 1L))
                 .andExpect(status().isNotFound());
     }
 
@@ -64,7 +64,7 @@ class TeamControllerTests {
         mockMvc.perform(post("/v1/teams")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(team))
-                        .andExpect(status().isCreated());
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -74,14 +74,14 @@ class TeamControllerTests {
         mockMvc.perform(post("/v1/teams")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(team))
-                        .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest());
     }
 
     @Test
     public void should_update_a_team() throws Exception {
         String team = ow.writeValueAsString(firstTeam());
-        doNothing().when(teamService).update(any(),any());
-        mockMvc.perform(put("/v1/teams/{id}",1L)
+        doNothing().when(teamService).update(any(), any());
+        mockMvc.perform(put("/v1/teams/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(team))
                 .andExpect(status().isNoContent());
@@ -90,11 +90,11 @@ class TeamControllerTests {
     @Test
     public void should_delete_a_team() throws Exception {
         doNothing().when(teamService).delete(any());
-        mockMvc.perform(delete("/v1/teams/{id}",1L))
+        mockMvc.perform(delete("/v1/teams/{id}", 1L))
                 .andExpect(status().isNoContent());
     }
 
-    private Team firstTeam(){
+    private Team firstTeam() {
         return Team.builder()
                 .id(1L)
                 .name("Team 1")
@@ -102,7 +102,7 @@ class TeamControllerTests {
                 .build();
     }
 
-    private Team secondTeam(){
+    private Team secondTeam() {
         return Team.builder()
                 .id(1L)
                 .name("Team 2")
@@ -110,7 +110,7 @@ class TeamControllerTests {
                 .build();
     }
 
-    private Team teamWithoutName(){
+    private Team teamWithoutName() {
         return Team.builder()
                 .id(1L)
                 .description("Team 1 desc")

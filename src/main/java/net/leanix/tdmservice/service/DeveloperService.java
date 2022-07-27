@@ -30,10 +30,16 @@ public class DeveloperService {
     }
 
     public void update(Long id, Developer developer) {
-        if (nonNull(getById(id))) developerRepository.save(developer);
+        Developer developerToBeUpdate = getById(id);
+        if (nonNull(developerToBeUpdate)) {
+            if (nonNull(developer.getName())) developerToBeUpdate.setName(developer.getName());
+            if (nonNull(developer.getTeam())) developerToBeUpdate.setTeam(developer.getTeam());
+            developerRepository.save(developerToBeUpdate);
+        } else throw new ResourceNotFoundException(ErrorCodes.DEVELOPER_NOT_FOUND);
     }
 
     public void delete(Long id) {
         if (nonNull(getById(id))) developerRepository.deleteById(id);
+        else throw new ResourceNotFoundException(ErrorCodes.DEVELOPER_NOT_FOUND);
     }
 }
